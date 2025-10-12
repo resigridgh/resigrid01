@@ -1,0 +1,19 @@
+[project]
+name = "mypythonpackage"
+version = "0.1.0"
+description = "Machine Learning Package"
+readme = "README.md"
+authors = [
+    { name = "resigridgh", email = "resigrid16@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.maturin]
+module-name = "resigrid._core"
+python-packages = ["resigrid01"]
+python-source = "src"
+
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"

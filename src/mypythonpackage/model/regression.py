@@ -11,18 +11,9 @@ warnings.filterwarnings('ignore')
 
 
 class LinearRegression:
-    """
-    Linear Regression implementation using PyTorch and Gradient Descent
-    """
     
     def __init__(self, learning_rate=0.01, epochs=1000):
-        """
-        Constructor for LinearRegression class
-        
-        Args:
-            learning_rate (float): Learning rate for gradient descent
-            epochs (int): Number of training epochs
-        """
+    
         self.learning_rate = learning_rate
         self.epochs = epochs
         
@@ -41,82 +32,16 @@ class LinearRegression:
         self.w1_history = []
         self.loss_history = []
         
-        print(f"LinearRegression initialized with learning_rate={learning_rate}, epochs={epochs}")
-    
-    def forward(self, x):
-        """
-        Forward pass - compute the linear model y = w0 + w1*x
-        
-        Args:
-            x (torch.Tensor): Input tensor
-            
-        Returns:
-            torch.Tensor: Predicted y values
-        """
-        return self.w0 + self.w1 * x
-    
-    def fit(self, X_train, y_train, X_test=None, y_test=None):
-    
-        # Convert to PyTorch tensors if they are numpy arrays
-        if not isinstance(X_train, torch.Tensor):
-            X_train = torch.tensor(X_train, dtype=torch.float32)
-        if not isinstance(y_train, torch.Tensor):
-            y_train = torch.tensor(y_train, dtype=torch.float32)
-        
-        # Ensure tensors are 1D for single feature regression
-        if X_train.dim() > 1 and X_train.shape[1] == 1:
-            X_train = X_train.squeeze()
-        if y_train.dim() > 1 and y_train.shape[1] == 1:
-            y_train = y_train.squeeze()
-        
+        print(f"LinearRegression initialized with learning_r
+
         print(f"Training started with {len(X_train)} samples")
         print(f"Initial parameters: w0 = {self.w0.item():.4f}, w1 = {self.w1.item():.4f}")
         
         # Training loop
         for epoch in range(self.epochs):
             # Zero gradients
-            self.optimizer.zero_grad()
-            
-            # Forward pass
-            y_pred = self.forward(X_train)
-            
-            # Compute loss
-            loss = self.criterion(y_pred, y_train)
-            
-            # Backward pass
-            loss.backward()
-            
-            # Update parameters
-            self.optimizer.step()
-            
-            # Store history
-            self.w0_history.append(self.w0.item())
-            self.w1_history.append(self.w1.item())
-            self.loss_history.append(loss.item())
-            
-            # Print progress every 100 epochs
-            if (epoch + 1) % 100 == 0:
-                print(f'Epoch [{epoch+1}/{self.epochs}], Loss: {loss.item():.6f}')
-        
-        # Final training summary
-        final_loss = self.criterion(self.forward(X_train), y_train)
-        print(f'\nTraining completed!')
-        print(f'Final Training Loss: {final_loss.item():.6f}')
-        print(f'Final parameters: w0 = {self.w0.item():.6f}, w1 = {self.w1.item():.6f}')
-        
-        # Compute R² on test data if provided
-        if X_test is not None and y_test is not None:
-            if not isinstance(X_test, torch.Tensor):
-                X_test = torch.tensor(X_test, dtype=torch.float32)
-            if not isinstance(y_test, torch.Tensor):
-                y_test = torch.tensor(y_test, dtype=torch.float32)
-            
-            # Ensure proper dimensions
-            if X_test.dim() > 1 and X_test.shape[1] == 1:
-                X_test = X_test.squeeze()
-            if y_test.dim() > 1 and y_test.shape[1] == 1:
-                y_test = y_test.squeeze()
-            
+            self.optimi
+
             with torch.no_grad():
                 y_pred_test = self.forward(X_test)
                 r2 = r2_score(y_test.numpy(), y_pred_test.numpy())
@@ -286,14 +211,122 @@ def run_hydropower():
     
     # Generate analysis plots
     print("\n" + "=" * 50)
-    print(" GENERATING ANALYSIS PLOTS")
-    print("=" * 50)
-    
-    model.plot_analysis(X_train_scaled, y_train)
-    
-    
-    return model, scaler, df
+
+run_hydropower()
 
 
-if __name__ == "__main__":
-    run_hydropower()
+class CauchyRegression:
+
+    def __init__(self, input_dim=4, c=1.0, lr=1e-3, epochs=1000,
+                 weight_decay=0.0, device='cpu', verbose=True):
+        self.input_dim = input_dim
+        self.c = float(c)
+        self.lr = lr
+        self.epochs = int(epochs)
+        self.device = torch.device(device)
+        self.verbose = verbose
+
+        # Model parameters
+        self.w = nn.Parameter(
+            torch.randn((input_dim, 1), dtype=torch.float32, device=self.device) * 0.1
+        )
+        self.b = nn.Parameter(
+            torch.zeros(1, dtype=torch.float32, device=self.device)
+        )
+
+        # Optimizer
+        self.optimizer = torch.optim.Adam(
+            [self.w, self.b], lr=self.lr, weight_decay=weight_decay
+        )
+
+        # Training history
+        self.history = {
+            'train_loss': [],
+            'test_loss': []
+        }
+
+    def forward(self, X):
+    
+        return X @ self.w + self.b
+
+    def cauchy_loss(self, y_pred, y_true):
+
+        residuals = y_true - y_pred
+        scaled_residuals = residuals / self.c
+        loss = 0.5 * (self.c ** 2) * torch.log(1 + scaled_residuals ** 2)
+        return loss.mean()
+
+    def fit(self, X_train, y_train, X_test=None, y_test=None):
+        
+        print("Training Cauchy Regression Model...")
+
+        for epoch in range(1, self.epochs + 1):
+            # Training step
+            self.optimizer.zero_grad()
+            y_pred_train = self.forward(X_train)
+            train_loss = self.cauchy_loss(y_pred_train, y_train)
+            train_loss.backward()
+            self.optimizer.step()
+
+            # Store training loss
+            self.history['train_loss'].append(train_loss.item())
+
+            # Calculate test loss if test data provided
+            if X_test is not None and y_test is not None:
+                with torch.no_grad():
+                    y_pred_test = self.forward(X_test)
+                    test_loss = self.cauchy_loss(y_pred_test, y_test)
+                self.history['test_loss'].append(test_loss.item())
+
+            # Progress reporting
+            if self.verbose and (epoch <= 5 or epoch % max(1, self.epochs//10) == 0):
+                if X_test is not None and y_test is not None:
+                    print(f"Epoch {epoch:4d}/{self.epochs} | "
+                          f"Train Loss: {train_loss.item():.4f} | "
+                          f"Test Loss: {test_loss.item():.4f}")
+                else:
+                    print(f"Epoch {epoch:4d}/{self.epochs} | "
+                          f"Train Loss: {train_loss.item():.4f}")
+
+        return self.history
+
+    def predict(self, X):
+        """Make predictions on tensor data."""
+        with torch.no_grad():
+            return self.forward(X)
+
+    def predict_numpy(self, X_np):
+        """Make predictions on numpy array."""
+        X_tensor = torch.tensor(X_np, dtype=torch.float32, device=self.device)
+        with torch.no_grad():
+            predictions = self.forward(X_tensor).cpu().numpy()
+        return predictions
+
+    def get_parameters(self):
+        """Get model parameters as numpy arrays."""
+        w_np = self.w.detach().cpu().numpy().flatten()
+        b_np = float(self.b.detach().cpu().numpy())
+        return b_np, w_np
+
+    def transform_to_original_scale(self, scaler):
+        """Transform coefficients back to original feature scale."""
+        b_scaled, w_scaled = self.get_parameters()
+        w_original = w_scaled / scaler.scale_
+        b_original = b_scaled - np.dot(scaler.mean_, w_scaled / scaler.scale_)
+        return b_original, w_original
+
+    def score(self, X, y, metric='cauchy'):
+        """Calculate model score on given data."""
+        if isinstance(X, np.ndarray):
+            X = torch.tensor(X, dtype=torch.float32, device=self.device)
+        if isinstance(y, np.ndarray):
+            y = torch.tensor(y, dtype=torch.float32, device=self.device)
+
+        with torch.no_grad():
+            y_pred = self.forward(X)
+            if metric == 'cauchy':
+                return self.cauchy_loss(y_pred, y).item()
+            elif metric == 'mse':
+                return torch.mean((y_pred - y) ** 2).item()
+            else:
+                raise ValueError("metric must be 'cauchy' or 'mse'")

@@ -4,8 +4,8 @@ from typing import Optional, List, Union
 import numpy as np
 
 def uniform(a: float = 0.0, b: float = 1.0) -> float:
-
-        if b <= a:
+    """Cryptographically secure uniform sample."""
+    if b <= a:
         raise ValueError("b must be greater than a")
 
     # 53 random bits gives 53-bit precision double
@@ -13,9 +13,8 @@ def uniform(a: float = 0.0, b: float = 1.0) -> float:
     return a + (b - a) * u
 
 def exponentialdist(lambd: float = 1.0) -> float:
-
-
-        if lambd <= 0:
+    """Cryptographically secure exponential distribution sample."""
+    if lambd <= 0:
         raise ValueError("lambda must be greater than 0")
 
     # Generate cryptographically secure uniform sample
@@ -25,8 +24,7 @@ def exponentialdist(lambd: float = 1.0) -> float:
     return -math.log(u) / lambd
 
 def poissondist(lambd: float = 1.0, max_iter: int = 1000) -> int:
-
-
+    """Cryptographically secure Poisson distribution sample."""
     if lambd <= 0:
         raise ValueError("lambda must be greater than 0")
 
@@ -53,11 +51,11 @@ def poissondist(lambd: float = 1.0, max_iter: int = 1000) -> int:
     return k
 
 def generate_samples(distribution_func, n: int, *args, **kwargs) -> List:
-
+    """Generate multiple samples from a distribution function."""
     return [distribution_func(*args, **kwargs) for _ in range(n)]
 
 def discrete_inverse_transform(pmf_values: List[float], outcomes: List[int]) -> int:
-
+    """General discrete inverse transform sampling for arbitrary discrete distributions."""
     if abs(sum(pmf_values) - 1.0) > 1e-10:
         raise ValueError("PMF values must sum to 1")
 
@@ -69,4 +67,4 @@ def discrete_inverse_transform(pmf_values: List[float], outcomes: List[int]) -> 
         if u <= F:
             return outcomes[i]
 
-    return outcomes[-1]
+    return outcomes[-1]  # Should never reach here if PMF sums to 1

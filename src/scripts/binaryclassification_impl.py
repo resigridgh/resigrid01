@@ -12,8 +12,13 @@ plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Training Loss over Epochs')
 
-# Save with timestamp
+from google.colab import files
+
+# Save the plot
 timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 filename = f"crossentropyloss_{timestamp}.pdf"
-plt.savefig(filename)
+plt.savefig(filename, bbox_inches='tight')
 print(f"Plot saved as {filename}")
+
+# Download it to your computer
+files.download(filename)

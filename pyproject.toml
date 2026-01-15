@@ -1,7 +1,7 @@
 [project]
 name = "mypythonpackage"
 version = "0.2.0"
-description = " CPE 586 "
+description = " CPE 586 and CPE 587"
 readme = "README.md"
 authors = [
     { name = "resigridgh", email = "resigrid16@gmail.com" }

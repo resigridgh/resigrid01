@@ -10,6 +10,10 @@ This repository implements a multi-layer binary classification model trained usi
 - PyTorch  
 - Matplotlib  
 
+# Install dependencies:
+
+`!pip install torch matplotlib'
+
 # Project Structure for Homework 01
 
 - resigrid01/
@@ -22,6 +26,41 @@ This repository implements a multi-layer binary classification model trained usi
     - scripts/
       - `binaryclassification_impl.py`
   - `README.md`
+
+
+GPU is used automatically if available.
+
+Installation
+
+- Clone the repository:
+
+`git clone https://github.com/resigridgh/resigrid01'
+`cd resigrid01'
+
+- Running the Code
+
+Run the script from the scripts directory: 
+Copy the code contains in binaryclassification_impl.py simply in your notebook. 
+
+Here is an example: https://colab.research.google.com/drive/1OMqp9houE9cf1uHFv__4Gry25-8LCLBb?usp=sharing
+
+This script:
+
+- Generates a random dataset
+- Trains a 4-layer neural network using gradient descent
+- Computes binary cross-entropy loss
+- Plots loss versus epochs
+- Saves the plot as a PDF file
+
+# Output
+A file is generated with the format:
+`crossentropyloss_YYYYMMDDhhmmss.pdf'
+This file shows training loss versus epochs.
+
+
+
+
+
 
 
 

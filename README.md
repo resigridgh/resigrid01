@@ -11,16 +11,18 @@ This repository implements a multi-layer binary classification model trained usi
 - Matplotlib  
 
 # Project Structure for Homework 01
-resigrid01/
-├── src/
-│   ├── mypythonpackage/
-│   │   ├── __init__.py
-│   │   └── deepl/
-│   │       ├── __init__.py
-│   │       └── two_layer_binary_classification.py
-│   └── scripts/
-│       └── binaryclassification_impl.py
-└── README.md
+
+- resigrid01/
+  - src/
+    - mypythonpackage/
+      - `__init__.py`
+      - deepl/
+        - `__init__.py`
+        - `two_layer_binary_classification.py`
+    - scripts/
+      - `binaryclassification_impl.py`
+  - `README.md`
+
 
 
 

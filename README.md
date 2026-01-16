@@ -1,5 +1,6 @@
 # Homework 01: Gradient Descent and Optimization
 
+
 This repository implements a multi-layer binary classification model trained using gradient descent and PyTorch automatic differentiation, developed for **CPE 487/587 – Homework 1 (Gradient Descent and Optimization)**.
 
 ---
@@ -58,6 +59,7 @@ A file is generated with the format:
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
 This file shows training loss versus epochs.
+
 
 
 

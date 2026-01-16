@@ -32,9 +32,9 @@ GPU is used automatically if available.
 
 Installation
 
-- Clone the repository:
+- Clone the repository through the following instructions:
 
-`git clone https://github.com/resigridgh/resigrid01'
+git clone https://github.com/resigridgh/resigrid01
 
 cd resigrid01
 
@@ -58,6 +58,7 @@ A file is generated with the format:
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
 This file shows training loss versus epochs.
+
 
 
 

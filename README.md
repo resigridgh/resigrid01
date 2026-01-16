@@ -4,7 +4,7 @@ This repository implements a multi-layer binary classification model trained usi
 
 ---
 
-## Requirements
+# Requirements
 
 - Python 3.12  
 - PyTorch  
@@ -30,7 +30,7 @@ This repository implements a multi-layer binary classification model trained usi
 
 GPU is used automatically if available.
 
-Installation
+# Installation
 
 - Clone the repository through the following instructions:
 
@@ -58,6 +58,7 @@ A file is generated with the format:
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
 This file shows training loss versus epochs.
+
 
 
 

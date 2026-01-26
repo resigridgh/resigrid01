@@ -13,7 +13,8 @@ This repository implements a multi-layer binary classification model trained usi
 
 # Install dependencies:
 
-pip install torch matplotlib torchdiffeq
+uv add torch matplotlib torchdiffeq
+
 
 # Project Structure for Homework 01
 
@@ -46,6 +47,7 @@ A file is generated with the format:
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
 This file shows training loss versus epochs.
+
 
 
 

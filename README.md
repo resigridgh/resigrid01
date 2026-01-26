@@ -26,7 +26,7 @@ pip install torch matplotlib torchdiffeq
         - `two_layer_binary_classification.py`
   - scripts/
       - `binaryclassification_impl.py`
-  - `README.md`
+- `README.md`
 
 
 GPU is used automatically if available.
@@ -46,6 +46,7 @@ A file is generated with the format:
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
 This file shows training loss versus epochs.
+
 
 
 

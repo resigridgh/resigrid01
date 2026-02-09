@@ -5,8 +5,8 @@
 #from .two_layer_binary_classification import binary_classification
 #from .weight_animation import WeightMatrixAnime, animate_weight_heatmap
 #from .largewt_animation import LargeWeightMatrixAnime, animate_large_heatmap
-from . import animation
-from .deepl import binary_classification
+#from . import animation
+#from .deepl import binary_classification
 
 
 #__all__ = ["LinearRegression", "run_hydropower"]
@@ -15,3 +15,6 @@ from .deepl import binary_classification
 #__all__ = ["binary_classification"]
 
 #__version__ = "0.2.0"
+# expose subpackages
+from . import animation
+from . import deepl

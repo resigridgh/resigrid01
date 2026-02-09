@@ -3,9 +3,9 @@
 #from .regression import CauchyRegression
 #from .matrix import rowswap, rowscale, rowreplacement, rref
 #from .two_layer_binary_classification import binary_classification
-from .weight_animation import WeightMatrixAnime, animate_weight_heatmap
-from .largewt_animation import LargeWeightMatrixAnime, animate_large_heatmap
-
+#from .weight_animation import WeightMatrixAnime, animate_weight_heatmap
+#from .largewt_animation import LargeWeightMatrixAnime, animate_large_heatmap
+from . import animation
 from .deepl import binary_classification
 
 

@@ -52,11 +52,7 @@ This file shows training loss versus epochs.
 
 
 ---
-
-# HW02Q8 — Generate Boxplots (uv)
-
-Follow the steps exactly from the repository root directory.
-
+# HW02Q8 
 ---
 
 ## Step 1 
@@ -126,6 +122,7 @@ boxplot_f1_*.png
 boxplot_precision_*.png
 boxplot_recall_*.png
 ```
+
 
 
 

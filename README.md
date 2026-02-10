@@ -50,6 +50,11 @@ This file shows training loss versus epochs.
 
 
 
+# HW02Q8
+
+Step 1 — Create the Python environment
+$$uv venv$$
+source .venv/bin/activate
 
 
 

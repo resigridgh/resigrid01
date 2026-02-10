@@ -50,11 +50,84 @@ This file shows training loss versus epochs.
 
 
 
-# HW02Q8
 
-Step 1 — Create the Python environment
-$$uv venv$$
+---
+
+# HW02Q8 — Generate Boxplots (uv)
+
+Follow the steps exactly from the repository root directory.
+
+---
+
+## Step 1 
+
+```bash
+uv python install 3.12
+uv venv --python 3.12
 source .venv/bin/activate
+```
+
+
+---
+
+## Step 2 — Install Dependencies
+
+```bash
+uv add torch torchvision torchaudio
+uv add numpy pandas matplotlib scikit-learn onnx
+```
+
+Install the local package:
+
+```bash
+uv pip install -e .
+```
+
+---
+
+## Step 3 — Download Dataset
+
+```bash
+chmod +x Scripts/malwaredatadownload.sh
+./Scripts/malwaredatadownload.sh
+```
+
+This will create:
+
+```
+data/Android_Malware.csv
+```
+
+---
+
+## Step 4 — Run Experiments and Create Boxplots
+
+```bash
+chmod +x Scripts/multiclass_impl.sh
+./Scripts/multiclass_impl.sh
+```
+
+
+---
+
+## Step 5 — Final Output
+
+After completion, the HW02Q8 results are in:
+
+```
+outputs/plots/
+```
+
+You should see:
+
+```
+boxplot_accuracy_*.png
+boxplot_f1_*.png
+boxplot_precision_*.png
+boxplot_recall_*.png
+```
+
+
 
 
 

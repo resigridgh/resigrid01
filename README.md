@@ -120,13 +120,13 @@ The training takes a long time, so a background script is provided.
 Make the script executable:
 
 ```bash
-chmod +x run_hw02_background.sh
+chmod +x hw02q7_background.sh
 ```
 
 Run the assignment:
 
 ```bash
-./run_hw02_background.sh
+./hw02q7_background.sh
 ```
 
 
@@ -203,6 +203,7 @@ boxplot_f1_*.png
 boxplot_precision_*.png
 boxplot_recall_*.png
 ```
+
 
 
 

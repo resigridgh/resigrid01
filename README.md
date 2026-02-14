@@ -49,6 +49,87 @@ crossentropyloss_YYYYMMDDhhmmss.pdf
 This file shows training loss versus epochs.
 
 
+## HW02Q7
+
+
+---
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid01
+```
+
+---
+
+### 2. Create and Activate a Virtual Environment
+
+Create a Python virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate it:
+
+**Linux / macOS**
+```bash
+source .venv/bin/activate
+```
+
+**Windows (PowerShell)**
+```powershell
+.venv\Scripts\activate
+```
+
+---
+
+### 3. Install the Package (Required for src-layout)
+
+This project uses a `src/` package structure.  
+You must install the package in editable mode so Python can find `mypythonpackage`.
+
+```bash
+pip install -e .
+```
+
+
+---
+
+### 4. Install Dependencies
+
+Install required libraries:
+
+```bash
+pip install torch matplotlib manim numpy
+```
+
+Verify Manim installation:
+
+```bash
+manim --version
+```
+
+---
+
+### 5. Execute the Assignment (Background Execution)
+
+The training takes a long time, so a background script is provided.
+
+Make the script executable:
+
+```bash
+chmod +x run_hw02_background.sh
+```
+
+Run the assignment:
+
+```bash
+./run_hw02_background.sh
+```
+
+
 
 
 ---
@@ -122,6 +203,7 @@ boxplot_f1_*.png
 boxplot_precision_*.png
 boxplot_recall_*.png
 ```
+
 
 
 

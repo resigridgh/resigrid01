@@ -65,25 +65,13 @@ cd resigrid01
 
 ### 2. Create and Activate a Virtual Environment
 
-Create a Python virtual environment:
-
+# first to clone this repo and synchronize all the necessary package
 ```bash
-python -m venv .venv
-```
-
-Activate it:
-
-**Linux / macOS**
-```bash
+uv venv --python 3.12
 source .venv/bin/activate
+uv sync
+uv build
 ```
-
-**Windows (PowerShell)**
-```powershell
-.venv\Scripts\activate
-```
-
----
 
 ### 3. Install the Package (Required for src-layout)
 
@@ -91,7 +79,7 @@ This project uses a `src/` package structure.
 You must install the package in editable mode so Python can find `mypythonpackage`.
 
 ```bash
-pip install -e .
+uv pip install -e .
 ```
 
 
@@ -102,7 +90,7 @@ pip install -e .
 Install required libraries:
 
 ```bash
-pip install torch matplotlib manim numpy
+uv pip install torch matplotlib manim numpy
 ```
 
 Verify Manim installation:
@@ -139,9 +127,12 @@ Run the assignment:
 ## Step 1 
 
 ```bash
-uv python install 3.12
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid
 uv venv --python 3.12
 source .venv/bin/activate
+uv sync
+uv build
 ```
 
 
@@ -203,6 +194,7 @@ boxplot_f1_*.png
 boxplot_precision_*.png
 boxplot_recall_*.png
 ```
+
 
 
 

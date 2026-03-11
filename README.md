@@ -128,7 +128,7 @@ Run the assignment:
 
 ```bash
 git clone https://github.com/resigridgh/resigrid01.git
-cd resigrid
+cd resigrid01
 uv venv --python 3.12
 source .venv/bin/activate
 uv sync
@@ -194,6 +194,7 @@ boxplot_f1_*.png
 boxplot_precision_*.png
 boxplot_recall_*.png
 ```
+
 
 
 

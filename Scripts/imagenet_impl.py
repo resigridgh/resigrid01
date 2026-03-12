@@ -7,7 +7,7 @@ from datasets import load_dataset
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from deepl.multiclass import ImageNetCNN, CNNTrainer
+from mypythonpackage. deepl.multiclass import ImageNetCNN, CNNTrainer
 
 
 # ------------------------------------------------------------

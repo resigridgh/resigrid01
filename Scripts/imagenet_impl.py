@@ -1,5 +1,4 @@
 import argparse
-import subprocess
 import torch
 import matplotlib.pyplot as plt
 
@@ -7,55 +6,15 @@ from datasets import load_dataset
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from mypythonpackage. deepl.multiclass import ImageNetCNN, CNNTrainer
-
-
-# ------------------------------------------------------------
-# GPU SELECTION (Least utilized GPU)
-# ------------------------------------------------------------
-def get_best_gpu(strategy="utilization"):
-
-    if strategy == "utilization":
-
-        result = subprocess.run(
-            [
-                "nvidia-smi",
-                "--query-gpu=utilization.gpu",
-                "--format=csv,noheader,nounits",
-            ],
-            capture_output=True,
-            text=True,
-        )
-
-        utilizations = [
-            int(x.strip()) for x in result.stdout.strip().split("\n")
-        ]
-
-        return utilizations.index(min(utilizations))
-
-    else:
-
-        free_mem = []
-
-        for i in range(torch.cuda.device_count()):
-            free, total = torch.cuda.mem_get_info(i)
-            free_mem.append(free)
-
-        return free_mem.index(max(free_mem))
+from mypythonpackage.deepl.multiclass import ImageNetCNN, CNNTrainer
 
 
 # ------------------------------------------------------------
 # COLLATE FUNCTION
 # ------------------------------------------------------------
 def collate_fn(batch):
-
-    pixel_values = torch.stack(
-        [item["pixel_values"] for item in batch]
-    )
-
-    labels = torch.tensor(
-        [item["labels"] for item in batch]
-    )
+    pixel_values = torch.stack([item["pixel_values"] for item in batch])
+    labels = torch.tensor([item["labels"] for item in batch])
 
     return {
         "pixel_values": pixel_values,
@@ -67,7 +26,6 @@ def collate_fn(batch):
 # MAIN SCRIPT
 # ------------------------------------------------------------
 def main():
-
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--epochs", type=int, default=10)
@@ -79,9 +37,9 @@ def main():
     # --------------------------------------------------------
     # Load ImageNet Dataset
     # --------------------------------------------------------
-    dataset = load_dataset(
-        "ILSVRC/imagenet-1k",
-        cache_dir="/data/CPE_487-587/imagenet-1k",
+   dataset = load_dataset(
+    "ILSVRC/imagenet-1k",
+    cache_dir="/data/CPE_487-587/imagenet-1k_mi1499"
     )
 
     train_dataset = dataset["train"]
@@ -148,7 +106,6 @@ def main():
     # Dataset preprocessing
     # --------------------------------------------------------
     def preprocess_train(examples):
-
         images = [
             train_transform(img.convert("RGB"))
             for img in examples["image"]
@@ -160,7 +117,6 @@ def main():
         }
 
     def preprocess_val(examples):
-
         images = [
             val_transform(img.convert("RGB"))
             for img in examples["image"]
@@ -194,19 +150,22 @@ def main():
     )
 
     # --------------------------------------------------------
-    # Select best GPU
+    # Choose 3rd GPU (index 2)
     # --------------------------------------------------------
-    device_id = get_best_gpu(strategy="utilization")
-
-    device = torch.device(f"cuda:{device_id}")
-
-    print("Using GPU:", device_id)
+    if torch.cuda.is_available() and torch.cuda.device_count() >= 3:
+        device = torch.device("cuda:2")
+        print("Using GPU: 2 (3rd GPU)")
+    elif torch.cuda.is_available():
+        device = torch.device("cuda:0")
+        print("3rd GPU not available. Using GPU: 0")
+    else:
+        device = torch.device("cpu")
+        print("CUDA not available. Using CPU")
 
     # --------------------------------------------------------
     # Instantiate model and trainer
     # --------------------------------------------------------
     model = ImageNetCNN(num_classes=num_classes)
-
     trainer = CNNTrainer(model, device=device)
 
     # --------------------------------------------------------
@@ -221,13 +180,15 @@ def main():
     # --------------------------------------------------------
     # Export ONNX model
     # --------------------------------------------------------
-    trainer.export_onnx("imagenet_model.onnx")
+    try:
+        trainer.export_onnx("imagenet_model.onnx")
+    except Exception as e:
+        print(f"ONNX export failed: {e}")
 
     # --------------------------------------------------------
     # Plot loss and accuracy
     # --------------------------------------------------------
     plt.figure()
-
     plt.plot(losses, label="Loss")
     plt.plot(train_acc, label="Train Accuracy")
     plt.plot(val_acc, label="Validation Accuracy")
@@ -235,10 +196,9 @@ def main():
     plt.xlabel("Epoch")
     plt.ylabel("Metric")
     plt.legend()
-
     plt.title("Training Progress")
-
     plt.savefig("training_metrics.png")
+    plt.close()
 
     print("Training plot saved as training_metrics.png")
 

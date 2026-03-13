@@ -8,6 +8,13 @@ from .multiclass import (
     CNNTrainer,
 )
 
+# ACC classifier
+from .acc_classifier import (
+    ACCDataset,
+    ACCNet,
+    DiceLoss,
+)
+
 __all__ = [
     "binary_classification",
     "SimpleNN",
@@ -15,4 +22,7 @@ __all__ = [
     "ConvLayer",
     "ImageNetCNN",
     "CNNTrainer",
+    "ACCDataset",
+    "ACCNet",
+    "DiceLoss",
 ]

@@ -3,117 +3,115 @@ import glob
 import numpy as np
 import pandas as pd
 import torch
-from torch.utils.data import Dataset
 import torch.nn as nn
+from torch.utils.data import Dataset
 
-
-# =========================================================
-# Dataset
-# =========================================================
 
 class ACCDataset(Dataset):
-    def __init__(self, data_dir, k=10, transform=None):
-        self.k = k
-        self.transform = transform
+    """
+    Dataset for Adaptive Cruise Control classification
+    """
 
-        speed_files = sorted(
-            glob.glob(os.path.join(data_dir, "*decoded_wheel_speed_fl.csv"))
-        )
-
-        status_file = os.path.join(data_dir, "acc_status.csv")
+    def __init__(self, data_dir, k=10):
 
         self.X = []
         self.y = []
 
-        status_df = pd.read_csv(status_file)
+        speed_files = glob.glob(
+            os.path.join(data_dir, "*decoded_wheel_speed_fl.csv")
+        )
 
-        for file in speed_files:
+        print("Found wheel speed files:", len(speed_files))
 
-            speed_df = pd.read_csv(file)
+        for speed_file in speed_files:
 
-            if "Message" not in speed_df.columns:
+            status_file = speed_file.replace(
+                "decoded_wheel_speed_fl",
+                "decoded_acc_status"
+            )
+
+            if not os.path.exists(status_file):
                 continue
 
+            speed_df = pd.read_csv(speed_file)
+            status_df = pd.read_csv(status_file)
+
             speeds = speed_df["Message"].values
+            status = status_df["Message"].values
 
-            labels = status_df["acc_status"].values
-
-            n = min(len(speeds), len(labels))
-
-            speeds = speeds[:n]
-            labels = labels[:n]
+            n = min(len(speeds), len(status))
 
             for t in range(k, n):
 
-                feature = speeds[t-k:t+1]
+                # vt, vt-1, ..., vt-10
+                feature = speeds[t-k:t+1][::-1]
 
-                label = 1 if labels[t] == 6 else 0
+                label = 1 if status[t] == 6 else 0
 
                 self.X.append(feature)
                 self.y.append(label)
 
+        self.X = np.array(self.X)
+
+        # normalization
+        self.mean = self.X.mean()
+        self.std = self.X.std()
+
+        self.X = (self.X - self.mean) / self.std
+
         self.X = torch.tensor(self.X, dtype=torch.float32)
         self.y = torch.tensor(self.y, dtype=torch.float32).unsqueeze(1)
+
+        print("Total dataset samples:", len(self.X))
 
     def __len__(self):
         return len(self.X)
 
     def __getitem__(self, idx):
 
-        x = self.X[idx]
-        y = self.y[idx]
+        return self.X[idx], self.y[idx]
 
-        if self.transform:
-            x = self.transform(x)
-
-        return x, y
-
-
-# =========================================================
-# Neural Network
-# =========================================================
 
 class ACCNet(nn.Module):
+    """
+    1D CNN for time-series ACC prediction
+    """
 
-    def __init__(self, input_dim=11):
+    def __init__(self):
 
         super().__init__()
 
-        self.model = nn.Sequential(
+        self.conv = nn.Sequential(
 
-            nn.Linear(input_dim, 64),
+            nn.Conv1d(1, 16, kernel_size=3, padding=1),
+            nn.ReLU(),
+
+            nn.Conv1d(16, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+
+            nn.Conv1d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+        )
+
+        self.fc = nn.Sequential(
+
+            nn.Linear(64 * 11, 64),
             nn.ReLU(),
 
             nn.Linear(64, 32),
             nn.ReLU(),
 
-            nn.Linear(32, 1),
-            nn.Sigmoid()
+            nn.Linear(32, 1)
         )
 
     def forward(self, x):
-        return self.model(x)
 
+        x = x.unsqueeze(1)   # shape: (batch, 1, 11)
 
-# =========================================================
-# Dice Loss
-# =========================================================
+        x = self.conv(x)
 
-class DiceLoss(nn.Module):
+        x = x.view(x.size(0), -1)
 
-    def __init__(self, smooth=1):
-        super().__init__()
-        self.smooth = smooth
+        x = self.fc(x)
 
-    def forward(self, preds, targets):
-
-        preds = preds.view(-1)
-        targets = targets.view(-1)
-
-        intersection = (preds * targets).sum()
-
-        dice = (2. * intersection + self.smooth) / (
-            preds.sum() + targets.sum() + self.smooth
-        )
-
-        return 1 - dice
+        return x

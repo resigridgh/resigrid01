@@ -37,7 +37,7 @@ def main():
     # --------------------------------------------------------
     # Load ImageNet Dataset
     # --------------------------------------------------------
-   dataset = load_dataset(
+    dataset = load_dataset(
     "ILSVRC/imagenet-1k",
     cache_dir="/data/CPE_487-587/imagenet-1k_mi1499"
     )

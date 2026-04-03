@@ -1,12 +1,4 @@
-from .two_layer_binary_classification import binary_classification
-
-from .multiclass import (
-    SimpleNN,
-    ClassTrainer,
-    ConvLayer,
-    ImageNetCNN,
-    CNNTrainer,
-)
+from .multiclass import ConvLayer, ImageNetCNN, CNNTrainer
 
 # ACC classifier
 from .acc_classifier import (
@@ -16,9 +8,6 @@ from .acc_classifier import (
 )
 
 __all__ = [
-    "binary_classification",
-    "SimpleNN",
-    "ClassTrainer",
     "ConvLayer",
     "ImageNetCNN",
     "CNNTrainer",

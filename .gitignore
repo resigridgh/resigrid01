@@ -1,12 +1,40 @@
-#---------------------------
-# PYTHON
- #-----------------------------
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 .ipynb_checkpoints/
- dist/
- *.egg-info/
- ##-----------------------------
-# Visual Studio Code
- #-------------------------------
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ML / DL files
+*.pt
+*.pth
+*.onnx
+*.onnx.data
+*.ckpt
+*.h5
+
+# Data / outputs
+data/
+outputs/
+logs/
+*.log
+
+# IDE
 .vscode/
+.idea/
+
+# Media
 media/
 *.mp4
+
+# System
+.DS_Store
+Thumbs.db

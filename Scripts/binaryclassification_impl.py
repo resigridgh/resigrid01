@@ -1,26 +1,11 @@
-# binaryclassification_impl.py
-
-import sys
-import os
-sys.path.append(os.path.abspath("../src/mypythonpackage"))
-
-from deepl.two_layer_binary_classification import binary_classification
+from mypythonpackage import deepl
 import matplotlib.pyplot as plt
+losses, W1, W2, W3, W4 = deepl.binary_classification(200, 40000, epochs = 1000)
+
 from datetime import datetime
 
-W1, W2, W3, W4, losses = binary_classification(d=10, n=1000, epochs=5000, lr=0.001)
+plt.plot(losses.cpu().detach().numpy())
 
-# Plot loss
-plt.figure()
-plt.plot(losses)
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.title('Training Loss over Epochs')
+plt.savefig("lossfunction_" + str(datetime.now()).replace(" ", "_").replace(":", "-").replace(".","__") + ".pdf")
 
-# Save figure
-timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-filename = f"crossentropyloss_{timestamp}.pdf"
-
-plt.savefig(filename, bbox_inches='tight')
-
-print(f"Plot saved as {filename}")
+print("Training complete.")

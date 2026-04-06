@@ -1,0 +1,14 @@
+nohup: ignoring input
+Starting the binary classification training task...
+Epoch 0 loss: 0.7156
+Epoch 100 loss: 0.7038
+Epoch 200 loss: 0.6966
+Epoch 300 loss: 0.6921
+Epoch 400 loss: 0.6893
+Epoch 500 loss: 0.6874
+Epoch 600 loss: 0.6861
+Epoch 700 loss: 0.6852
+Epoch 800 loss: 0.6844
+Epoch 900 loss: 0.6839
+Training complete.
+Process finished at Mon Apr  6 03:48:55 PM CDT 2026

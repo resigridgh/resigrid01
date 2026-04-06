@@ -115,3 +115,27 @@ class ACCNet(nn.Module):
         x = self.fc(x)
 
         return x
+
+
+class DiceLoss(nn.Module):
+    """
+    Dice loss for binary classification
+    Expects raw logits from the model and binary targets in {0,1}
+    """
+
+    def __init__(self, smooth=1.0):
+        super().__init__()
+        self.smooth = smooth
+
+    def forward(self, logits, targets):
+        probs = torch.sigmoid(logits)
+
+        probs = probs.contiguous().view(-1)
+        targets = targets.float().contiguous().view(-1)
+
+        intersection = (probs * targets).sum()
+        dice = (2.0 * intersection + self.smooth) / (
+            probs.sum() + targets.sum() + self.smooth
+        )
+
+        return 1.0 - dice

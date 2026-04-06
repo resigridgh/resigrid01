@@ -13,9 +13,9 @@ from mypythonpackage.deepl import ACCDataset, ACCNet
 
 DATA_DIR = "/data/CPE_487-587/ACCDataset"
 
-BATCH_SIZE = 128
-EPOCHS = 20
-LR = 0.0005
+BATCH_SIZE = 64
+EPOCHS = 100
+LR = 0.005
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

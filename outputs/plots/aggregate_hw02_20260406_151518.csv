@@ -1,0 +1,2 @@
+timestamp,keyword,data_path,epochs,eta,optimizer,batch_size,test_size,num_classes,train_accuracy,train_f1,train_precision,train_recall,test_accuracy,test_f1,test_precision,test_recall,onnx_path
+20260406_151015,hw02,/home/mi1499/resigrid01/data/Android_Malware.csv,50,0.001,adam,2048,0.2,4,0.4285950285408992,0.3304002035641875,0.3766848171819505,0.3541810612976913,0.4262998059781233,0.32461035793503,0.3650703432988668,0.3494609878223743,

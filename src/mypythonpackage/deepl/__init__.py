@@ -1,6 +1,5 @@
-from .multiclass import ConvLayer, ImageNetCNN, CNNTrainer
+from .multiclass import SimpleNN, ClassTrainer, EvalMetrics, ConvLayer, ImageNetCNN, CNNTrainer
 
-# ACC classifier
 from .acc_classifier import (
     ACCDataset,
     ACCNet,
@@ -8,6 +7,9 @@ from .acc_classifier import (
 )
 
 __all__ = [
+    "SimpleNN",
+    "ClassTrainer",
+    "EvalMetrics",
     "ConvLayer",
     "ImageNetCNN",
     "CNNTrainer",

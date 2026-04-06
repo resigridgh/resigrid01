@@ -212,16 +212,78 @@ boxplot_recall_*.png
 ```
 
 
+---
+# HW03Q6 
+---
 
+## 🚀 How to Run
 
+Follow these steps from the root of the repository:
 
+## Step 1 - Clone the repo
 
+```bash
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid01
+uv venv --python 3.12
+source .venv/bin/activate
+uv sync
+uv build
+```
+## Step 2 — Go to repo root
+```bash
+cd ~/resigrid01
+```
+## Step 3 — Make the script executable
 
+```bash
+chmod +x Scripts/imagenet_impl.sh
+```
+## Step 4 — Run the script
+```bash
+Scripts/imagenet_impl.sh
+```
+### Should See:
+```bash
+example_train_image.png
+example_val_image.png
+```
 
+---
+# HW03Q7 
+---
 
+## Step 1 - Clone the repo
 
+```bash
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid01
+uv venv --python 3.12
+source .venv/bin/activate
+uv sync
+uv build
+```
+## Step 2 — Go to repo root
+```bash
+cd resigrid01
+```
 
+## Step 3
+```bash
+cd Scrips
+```
 
+## Step 4
+```
+python acc_classifier_impl.py
+```
+## You Shouls See:
+```bash
+acc_model.onnx
+accuracy_vs_epochs.png
+loss_vs_epochs.png
+```
+In the Scripts directory. 
 
 
 

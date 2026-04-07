@@ -1,48 +1,36 @@
-# Homework 01: Gradient Descent and Optimization
-
-
-This repository implements a multi-layer binary classification model trained using gradient descent and PyTorch automatic differentiation, developed for **CPE 487/587 – Homework 1 (Gradient Descent and Optimization)**.
+# HW 01: Gradient Descent and Optimization
 
 ---
 
-# Requirements
+## Step 1. Clone the Repository
 
-- Python 3.12  
-- PyTorch  
-- Matplotlib  
+```bash
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid01
+```
 
-# Install dependencies:
+---
 
-uv add torch matplotlib torchdiffeq
+## Step 2. Create and Activate a Virtual Environment
 
+# first to clone this repo and synchronize all the necessary package
+```bash
+uv venv --python 3.12
+source .venv/bin/activate
+uv sync
+uv build
+```
+## Step 3. Run the bash script
+'''bash
+cd Script
+chmod +x binary_classh.sh
+nohup ./binary_classh.sh > training_log.out 2>&1 &
+'''
+### 
 
-# Project Structure for Homework 01
-
-- resigrid01/
-  - src/
-    - mypythonpackage/
-      - `__init__.py`
-      - deepl/
-        - `__init__.py`
-        - `two_layer_binary_classification.py`
-  - scripts/
-      - `binaryclassification_impl.py`
-- `README.md`
-
-
-GPU is used automatically if available.
-
-
-This script:
-
-- Generates a random dataset
-- Trains a 4-layer neural network using gradient descent
-- Computes binary cross-entropy loss
-- Plots loss versus epochs
-- Saves the plot as a PDF file
 
 # Output
-A file is generated with the format:
+A file is generated with the format in the Scripts folder:
 
 crossentropyloss_YYYYMMDDhhmmss.pdf
 
@@ -50,7 +38,6 @@ This file shows training loss versus epochs.
 
 
 ## HW02Q7
-
 
 ---
 

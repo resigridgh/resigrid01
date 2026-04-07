@@ -16,4 +16,5 @@ __all__ = [
     "ACCDataset",
     "ACCNet",
     "DiceLoss",
+    "binary_classification",
 ]

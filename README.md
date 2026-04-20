@@ -258,6 +258,44 @@ In the Scripts directory.
 
 
 
+---
+# HW04 
+---
+
+## 🚀 How to Run
+
+Follow these steps from the root of the repository:
+
+## Step 1 - Clone the repo
+
+```bash
+git clone https://github.com/resigridgh/resigrid01.git
+cd resigrid01
+uv venv --python 3.12
+source .venv/bin/activate
+uv sync
+uv build
+```
+## Step 2 — Go to `Scripts` folder
+```bash
+cd ~/resigrid01/Scripts
+```
+## Step 3 — Make the script executable
+
+```bash
+chmod +x run_genmodels.sh
+```
+## Step 4 — Run the script in the background
+```bash
+nohup ./run_genmodels.sh > run_${TS}.log 2>&1 &
+```
+### Should See following files in the `outputs/gen_eval_1000` folder:
+```bash
+comparison_barplot_2026-04-17_17-57-27.png
+vae_samples_25_2026-04-17_17-57-27.png
+gan_samples_25_2026-04-17_17-57-27.png
+diffusion_samples_25_2026-04-17_17-57-27.png
+```
 
 
 

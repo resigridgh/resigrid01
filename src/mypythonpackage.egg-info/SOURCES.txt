@@ -10,7 +10,9 @@ src/mypythonpackage/animation/__init__.py
 src/mypythonpackage/animation/largewt_animation.py
 src/mypythonpackage/animation/weight_animation.py
 src/mypythonpackage/deepl/__init__.py
+src/mypythonpackage/deepl/_init__.py
 src/mypythonpackage/deepl/acc_classifier.py
+src/mypythonpackage/deepl/gen_model.py
 src/mypythonpackage/deepl/multiclass.py
 src/mypythonpackage/deepl/multiclass_hw03.py
 src/mypythonpackage/deepl/two_layer_binary_classification.py
@@ -18,6 +20,8 @@ src/mypythonpackage/distributions/__init__.py
 src/mypythonpackage/distributions/cvdistributions.py
 src/mypythonpackage/matrix/__init__.py
 src/mypythonpackage/matrix/elementary.py
+src/mypythonpackage/metrics/__init__.py
+src/mypythonpackage/metrics/image_quality.py
 src/mypythonpackage/model/__init__.py
 src/mypythonpackage/model/discrete.py
 src/mypythonpackage/model/logit.py

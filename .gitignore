@@ -23,7 +23,11 @@ env/
 
 # Data / outputs
 data/
-outputs/
+outputs/*
+!outputs/gen_eval/
+!outputs/gen_eval_1000/
+!outputs/**/*.png
+!outputs/**/*.json
 logs/
 *.log
 

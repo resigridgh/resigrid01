@@ -21,11 +21,11 @@ uv sync
 uv build
 ```
 ## Step 3. Run the bash script
-'''bash
+```bash
 cd Script
 chmod +x binary_classh.sh
 nohup ./binary_classh.sh > training_log.out 2>&1 &
-'''
+```
 ### 
 
 
